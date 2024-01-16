@@ -7,7 +7,7 @@ function createUser(req, res) {
     sqlQuery = 'INSERT INTO users (name,phone,email) VALUES(?,?,?)'
     const { name,  phone, email } = req.body
     db.query(sqlQuery, [name,phone, email])
-    res.send("ishladi")
+    res.send("successfully registered")
 }
 
 async function getUser(req, res) {
@@ -53,7 +53,7 @@ async function updateUser(req, res) {
         // const {name,lastName,email,phone}=req.body
         const updateSql = "UPDATE users SET ? WHERE id=?"
         await db.query(updateSql, [req.body, id])
-        res.send("o\'zgartirildi")
+        res.send("changed")
     } catch (error) {
         res.status(404).json({ error: error.message })
 
@@ -65,12 +65,12 @@ async function deleteUser(req, res) {
         const userId = req.params.id;
         const query = "DELETE FROM users WHERE id =?";
         await db.query(query, [userId]);
-        res.json({ message: "muvaffaqiyatli o\'chirildi" });
+        res.json({ message: "deleted successfully" });
 
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "o\'chirilmadi" });
+        res.status(500).json({ error: "not deleted" });
     }
 }
 module.exports = {
